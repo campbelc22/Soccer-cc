@@ -10,8 +10,8 @@ import java.util.*;
 /**
  * Soccer player database -- presently, all dummied up
  *
- * @author *** put your name here ***
- * @version *** put date of completion here ***
+ * @Chloe&Ryan
+ * @9-29-2020 *** put date of completion here ***
  *
  */
 public class SoccerDatabase implements SoccerDB {
@@ -21,10 +21,20 @@ public class SoccerDatabase implements SoccerDB {
      *
      * @see SoccerDB#addPlayer(String, String, int, String)
      */
+    Hashtable<String, SoccerPlayer> hashPlayers = new Hashtable();
+
     @Override
     public boolean addPlayer(String firstName, String lastName,
                              int uniformNumber, String teamName) {
-        return false;
+        String playerKey = firstName +" ## " +lastName;
+        if(hashPlayers.containsValue(playerKey)){
+            return false;
+        }
+        else {
+            SoccerPlayer player1 = new SoccerPlayer(firstName, lastName, uniformNumber, teamName);
+            hashPlayers.put(playerKey, player1);
+            return true;
+        }
     }
 
     /**
