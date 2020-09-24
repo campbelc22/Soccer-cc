@@ -27,7 +27,7 @@ public class SoccerDatabase implements SoccerDB {
     public boolean addPlayer(String firstName, String lastName,
                              int uniformNumber, String teamName) {
         String playerKey = firstName +" ## " +lastName;
-        if(hashPlayers.containsValue(playerKey)){
+        if(hashPlayers.containsKey(playerKey)){
             return false;
         }
         else {
@@ -44,7 +44,13 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean removePlayer(String firstName, String lastName) {
-        return false;
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsValue(hashKey)){
+            hashPlayers.remove(hashKey);
+        }
+        else {
+            return false;
+        }
     }
 
     /**
