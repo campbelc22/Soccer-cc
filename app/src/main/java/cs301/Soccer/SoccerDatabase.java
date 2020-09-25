@@ -27,7 +27,7 @@ public class SoccerDatabase implements SoccerDB {
     public boolean addPlayer(String firstName, String lastName,
                              int uniformNumber, String teamName) {
         String playerKey = firstName +" ## " +lastName;
-        if(hashPlayers.containsValue(playerKey)){
+        if(hashPlayers.containsKey(playerKey)){
             return false;
         }
         else {
@@ -44,6 +44,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean removePlayer(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.remove(hashKey);
+            return true;
+        }else
         return false;
     }
 
@@ -55,11 +61,11 @@ public class SoccerDatabase implements SoccerDB {
     @Override
     public SoccerPlayer getPlayer(String firstName, String lastName) {
         String hashKey = firstName + " ## " + lastName;
-        if(hashPlayers.containsValue(hashKey)){
-            return null;
+        if(hashPlayers.containsKey(hashKey)){
+            return hashPlayers.get(hashKey);
         }
         else {
-            return hashPlayers.get(hashKey);
+            return null;
         }
     }
 
@@ -70,6 +76,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpGoals(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpGoals();
+            return true;
+        }
         return false;
     }
 
@@ -80,6 +92,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpAssists(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpAssists();
+            return true;
+        }
         return false;
     }
 
@@ -90,6 +108,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpShots(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpShots();
+            return true;
+        }
         return false;
     }
 
@@ -100,6 +124,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpSaves(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpSaves();
+            return true;
+        }
         return false;
     }
 
@@ -110,6 +140,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpFouls(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpFouls();
+            return true;
+        }
         return false;
     }
 
@@ -120,6 +156,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpYellowCards(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpYellowCards();
+            return true;
+        }
         return false;
     }
 
@@ -130,6 +172,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpRedCards(String firstName, String lastName) {
+        String hashKey = firstName + " ## " + lastName;
+        if(hashPlayers.containsKey(hashKey))
+        {
+            hashPlayers.get(hashKey).bumpRedCards();
+            return true;
+        }
         return false;
     }
 
