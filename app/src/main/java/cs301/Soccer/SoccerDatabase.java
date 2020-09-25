@@ -47,10 +47,11 @@ public class SoccerDatabase implements SoccerDB {
         String hashKey = firstName + " ## " + lastName;
         if(hashPlayers.containsValue(hashKey)){
             hashPlayers.remove(hashKey);
+            return true;
         }
-        else {
+        else
             return false;
-        }
+
     }
 
     /**
