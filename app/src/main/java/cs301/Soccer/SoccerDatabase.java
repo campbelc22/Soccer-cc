@@ -3,7 +3,9 @@ package cs301.Soccer;
 import android.util.Log;
 import cs301.Soccer.soccerPlayer.SoccerPlayer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -221,7 +223,33 @@ public class SoccerDatabase implements SoccerDB {
     // get the nTH player
     @Override
     public SoccerPlayer playerNum(int idx, String teamName) {
-        return null;
+        Set<String> keySet = hashPlayers.keySet();
+        SoccerPlayer player = null;
+        if (idx > numPlayers(teamName)) {
+            return null;
+        }
+        else {
+            int i = 0;
+            if (teamName == null) {
+                for (String key : keySet) {
+                    if (i == idx) {
+                        player = hashPlayers.get(key);
+                    }
+                    i++;
+                }
+            }
+            else {
+                for (String key : keySet) {
+                    if (teamName.equals(hashPlayers.get(key).getTeamName())) {
+                        if (i == idx) {
+                            player = hashPlayers.get(key);
+                        }
+                        i++;
+                    }
+                }
+            }
+        }
+        return player;
     }
 
     /**
@@ -242,8 +270,31 @@ public class SoccerDatabase implements SoccerDB {
      */
     // write data to file
     @Override
-    public boolean writeData(File file) {
-        return false;
+    public boolean writeData(File file){
+        try {
+            PrintWriter pw = new PrintWriter(file);
+            Set<String> keySet = hashPlayers.keySet();
+            SoccerPlayer pl = null;
+            for (String key : keySet) {
+                pl = hashPlayers.get(key);
+                pw.println(pl.getFirstName() + " " + pl.getLastName());
+                pw.println(pl.getTeamName());
+                pw.println(pl.getUniform());
+                pw.println(pl.getAssists());
+                pw.println(pl.getFouls());
+                pw.println(pl.getGoals());
+                pw.println(pl.getRedCards());
+                pw.println(pl.getYellowCards());
+                pw.println(pl.getSaves());
+                pw.println(pl.getShots());
+            }
+            pw.close();
+            return true;
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
