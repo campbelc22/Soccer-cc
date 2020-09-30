@@ -21,7 +21,7 @@ public class SoccerDatabase implements SoccerDB {
      *
      * @see SoccerDB#addPlayer(String, String, int, String)
      */
-    Hashtable<String, SoccerPlayer> hashPlayers = new Hashtable();
+    Hashtable<String, SoccerPlayer> hashPlayers = new Hashtable<String, SoccerPlayer>();
     String hash = " ## ";
 
     @Override
@@ -198,8 +198,19 @@ public class SoccerDatabase implements SoccerDB {
     @Override
     // report number of players on a given team (or all players, if null)
     public int numPlayers(String teamName) {
-        
-        return -1;
+        Set<String> keySet = hashPlayers.keySet();
+        int count=0;
+        if(teamName == null) {
+            return hashPlayers.size();
+        }
+        else {
+            for (String key : keySet) {
+                if(teamName.equals(hashPlayers.get(key).getTeamName())){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     /**
@@ -210,7 +221,33 @@ public class SoccerDatabase implements SoccerDB {
     // get the nTH player
     @Override
     public SoccerPlayer playerNum(int idx, String teamName) {
-        return null;
+        Set<String> keySet = hashPlayers.keySet();
+        SoccerPlayer player = null;
+        if(idx>numPlayers(teamName))
+            return null;
+        else {
+            int iter = 0;
+            if(teamName.equals(null))
+            {
+                for(String key : keySet){
+                    if(iter == idx){
+                        player = hashPlayers.get(key);
+                    }
+                    iter++;
+                }
+
+            }else {
+                for(String key: keySet){
+                    if(teamName.equals(hashPlayers.get(key).getTeamName())) {
+                        if (iter == idx) {
+                            player = hashPlayers.get(key);
+                        }
+                        iter++;
+                    }
+                }
+            }
+        }
+        return player;
     }
 
     /**
